@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { InputSection } from '@/components/InputSection';
 import { SvgPreview } from '@/components/SvgPreview';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { LoginPage } from '@/components/LoginPage';
+import { HeaderWithAuth } from '@/components/HeaderWithAuth';
 import { GeneratedSvg, GenerationStatus, ApiError } from '@/types';
 import { AlertCircle } from 'lucide-react';
 
@@ -17,9 +19,41 @@ function generateUUID(): string {
 }
 
 export default function Home() {
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
     const [status, setStatus] = useState<GenerationStatus>(GenerationStatus.IDLE);
     const [currentSvg, setCurrentSvg] = useState<GeneratedSvg | null>(null);
     const [error, setError] = useState<ApiError | null>(null);
+
+    // Check authentication status on mount
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
+    const checkAuth = async () => {
+        try {
+            const response = await fetch('/api/auth/verify');
+            const data = await response.json();
+            setIsAuthenticated(data.authenticated);
+        } catch (error) {
+            console.error('Auth check failed:', error);
+            setIsAuthenticated(false);
+        }
+    };
+
+    const handleLoginSuccess = () => {
+        setIsAuthenticated(true);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            setIsAuthenticated(false);
+            setCurrentSvg(null);
+            setStatus(GenerationStatus.IDLE);
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     const handleGenerate = async (prompt: string) => {
         setStatus(GenerationStatus.LOADING);
@@ -61,10 +95,31 @@ export default function Home() {
         }
     };
 
+    // Show loading while checking authentication
+    if (isAuthenticated === null) {
+        return (
+            <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
+                <div className="text-zinc-400">Loading...</div>
+            </div>
+        );
+    }
+
+    // Show login page if not authenticated
+    if (!isAuthenticated) {
+        return (
+            <ErrorBoundary>
+                <LoginPage onLoginSuccess={handleLoginSuccess} />
+            </ErrorBoundary>
+        );
+    }
+
+    // Show main app if authenticated
     return (
         <ErrorBoundary>
-            <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-indigo-500/30 pt-8">
-                <main className="pb-20">
+            <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-indigo-500/30">
+                <HeaderWithAuth onLogout={handleLogout} />
+
+                <main className="pb-20 pt-8">
                     <InputSection onGenerate={handleGenerate} status={status} />
 
                     {status === GenerationStatus.ERROR && error && (

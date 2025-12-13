@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
+import { verifySession } from '@/lib/auth';
 
 // Initialize the Gemini AI client with API key from environment variables
 // This ensures the API key is NEVER exposed to the frontend
@@ -14,6 +15,15 @@ const ai = new GoogleGenAI({
 
 export async function POST(request: NextRequest) {
     try {
+        // Check authentication first
+        const isAuthenticated = await verifySession();
+        if (!isAuthenticated) {
+            return NextResponse.json(
+                { error: 'Unauthorized. Please login to use this service.' },
+                { status: 401 }
+            );
+        }
+
         // Validate API key exists
         if (!process.env.GOOGLE_API_KEY) {
             return NextResponse.json(
