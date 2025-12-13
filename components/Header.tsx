@@ -17,13 +17,13 @@ export const Header: React.FC = () => {
           <div>
             <h1 className="text-xl font-bold text-white tracking-tight">VectorCraft AI</h1>
             <p className="text-xs text-zinc-400 font-medium flex items-center gap-1">
-              Powered by Gemini 3 Pro <Sparkles className="w-3 h-3 text-amber-400" />
+              Powered by Gemini 2.5 Flash <Sparkles className="w-3 h-3 text-amber-400" />
             </p>
           </div>
         </div>
-        <a 
-          href="https://ai.google.dev/" 
-          target="_blank" 
+        <a
+          href="https://ai.google.dev/"
+          target="_blank"
           rel="noopener noreferrer"
           className="hidden sm:block text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
         >

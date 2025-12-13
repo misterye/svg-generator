@@ -5,7 +5,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { Send, Loader2, Wand2 } from 'lucide-react';
-import { GenerationStatus } from '../types';
+import { GenerationStatus } from '@/types';
 
 interface InputSectionProps {
   onGenerate: (prompt: string) => void;
@@ -54,8 +54,8 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, status }
             disabled={!input.trim() || isLoading}
             className={`
               flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-200
-              ${!input.trim() || isLoading 
-                ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed' 
+              ${!input.trim() || isLoading
+                ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
                 : 'bg-white text-zinc-950 hover:bg-zinc-200 active:scale-95 shadow-lg shadow-white/10'}
             `}
           >
@@ -73,7 +73,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, status }
           </button>
         </div>
       </form>
-      
+
       {/* Quick suggestions */}
       <div className="mt-6 flex flex-wrap justify-center gap-2">
         {['Retro Camera', 'Space Rocket', 'Origami Bird', 'Isometric House'].map((suggestion) => (
