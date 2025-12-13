@@ -122,7 +122,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
                 {/* Footer */}
                 <div className="mt-8 text-center text-sm text-zinc-600">
-                    <p>Powered by Gemini 2.5 Flash</p>
+                    <p>AI-Powered Vector Graphics</p>
                 </div>
             </div>
         </div>

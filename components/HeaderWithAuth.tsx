@@ -23,7 +23,7 @@ export const HeaderWithAuth: React.FC<HeaderWithAuthProps> = ({ onLogout }) => {
                     <div>
                         <h1 className="text-xl font-bold text-white tracking-tight">VectorCraft AI</h1>
                         <p className="text-xs text-zinc-400 font-medium flex items-center gap-1">
-                            Powered by Gemini 2.5 Flash <Sparkles className="w-3 h-3 text-amber-400" />
+                            AI-Powered SVG Generator <Sparkles className="w-3 h-3 text-amber-400" />
                         </p>
                     </div>
                 </div>
