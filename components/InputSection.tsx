@@ -1,11 +1,12 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 
 import React, { useState, useCallback } from 'react';
 import { Send, Loader2, Wand2 } from 'lucide-react';
 import { GenerationStatus } from '@/types';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface InputSectionProps {
   onGenerate: (prompt: string) => void;
@@ -13,6 +14,7 @@ interface InputSectionProps {
 }
 
 export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, status }) => {
+  const { t } = useLanguage();
   const [input, setInput] = useState('');
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
@@ -28,10 +30,10 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, status }
     <div className="w-full max-w-2xl mx-auto mt-12 px-4">
       <div className="text-center mb-8">
         <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 mb-3">
-          What do you want to create?
+          {t('input.title')}
         </h2>
         <p className="text-zinc-400 text-lg">
-          Describe an object, icon, or scene, and we'll render it as vector art.
+          {t('input.description')}
         </p>
       </div>
 
@@ -45,7 +47,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, status }
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="e.g. A futuristic cyberpunk helmet with neon lights..."
+            placeholder={t('input.placeholder')}
             className="flex-1 bg-transparent border-none outline-none text-white placeholder-zinc-500 px-4 py-3 text-lg"
             disabled={isLoading}
           />
@@ -53,35 +55,41 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, status }
             type="submit"
             disabled={!input.trim() || isLoading}
             className={`
-              flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-200
+              px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-all duration-200
               ${!input.trim() || isLoading
-                ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
+                ? 'bg-zinc-800 text-zinc-600 cursor-not-allowed'
                 : 'bg-white text-zinc-950 hover:bg-zinc-200 active:scale-95 shadow-lg shadow-white/10'}
             `}
           >
             {isLoading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="hidden sm:inline">Crafting...</span>
+                <span className="hidden sm:inline">{t('input.button.generating')}</span>
               </>
             ) : (
               <>
-                <span className="hidden sm:inline">Generate</span>
                 <Send className="w-5 h-5" />
+                <span className="hidden sm:inline">{t('input.button.generate')}</span>
               </>
             )}
           </button>
         </div>
       </form>
 
-      {/* Quick suggestions */}
-      <div className="mt-6 flex flex-wrap justify-center gap-2">
-        {['Retro Camera', 'Space Rocket', 'Origami Bird', 'Isometric House'].map((suggestion) => (
+      {/* Suggestions */}
+      <div className="flex flex-wrap justify-center gap-2 mt-6">
+        {[
+          t('input.suggestion.1'),
+          t('input.suggestion.2'),
+          t('input.suggestion.3'),
+          t('input.suggestion.4')
+        ].map((suggestion, index) => (
           <button
-            key={suggestion}
+            key={index}
+            type="button"
             onClick={() => setInput(suggestion)}
-            className="px-3 py-1.5 text-xs font-medium text-zinc-400 bg-zinc-800/50 border border-white/5 rounded-full hover:bg-zinc-800 hover:text-white hover:border-white/20 transition-all"
             disabled={isLoading}
+            className="px-4 py-2 bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white text-sm rounded-lg border border-white/5 hover:border-white/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {suggestion}
           </button>

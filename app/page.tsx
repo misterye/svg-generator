@@ -8,6 +8,7 @@ import { LoginPage } from '@/components/LoginPage';
 import { HeaderWithAuth } from '@/components/HeaderWithAuth';
 import { GeneratedSvg, GenerationStatus, ApiError } from '@/types';
 import { AlertCircle } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Browser-compatible UUID generator
 function generateUUID(): string {
@@ -19,6 +20,7 @@ function generateUUID(): string {
 }
 
 export default function Home() {
+    const { t } = useLanguage();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
     const [status, setStatus] = useState<GenerationStatus>(GenerationStatus.IDLE);
     const [currentSvg, setCurrentSvg] = useState<GeneratedSvg | null>(null);
@@ -150,7 +152,7 @@ export default function Home() {
                                     <polyline points="21 15 16 10 5 21" />
                                 </svg>
                             </div>
-                            <p className="text-zinc-600 text-sm">Generated artwork will appear here</p>
+                            <p className="text-zinc-600 text-sm">{t('empty.message')}</p>
                         </div>
                     )}
                 </main>
