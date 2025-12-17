@@ -19,11 +19,14 @@ export const LanguageSwitcher: React.FC = () => {
     return (
         <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm text-zinc-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-            title="Switch Language"
+            className="p-2 rounded-lg bg-gray-200 dark:bg-zinc-800 hover:bg-gray-300 dark:hover:bg-zinc-700 border border-gray-300 dark:border-white/10 transition-all duration-300 ease-in-out"
+            title={language === 'en' ? '切换到中文' : 'Switch to English'}
+            aria-label={language === 'en' ? 'Switch to Chinese' : 'Switch to English'}
         >
-            <Languages className="w-4 h-4" />
-            <span className="hidden sm:inline">{language === 'en' ? '中文' : 'EN'}</span>
+            <div className="flex items-center gap-1.5">
+                <Languages className="w-4 h-4 text-gray-600 dark:text-zinc-400" />
+                <span className="text-xs font-medium text-gray-700 dark:text-zinc-300">{language === 'en' ? '中文' : 'EN'}</span>
+            </div>
         </button>
     );
 };

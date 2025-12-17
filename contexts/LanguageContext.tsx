@@ -63,6 +63,11 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Language
         'language.current': 'English',
+
+        // Theme
+        'theme.light': 'Light Mode',
+        'theme.dark': 'Dark Mode',
+        'theme.toggle': 'Toggle theme',
     },
     zh: {
         // Header
@@ -108,6 +113,11 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Language
         'language.current': '简体中文',
+
+        // Theme
+        'theme.light': '亮色模式',
+        'theme.dark': '暗色模式',
+        'theme.toggle': '切换主题',
     },
 };
 

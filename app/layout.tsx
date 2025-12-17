@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata: Metadata = {
     title: "SVG Generator - Powered by Gemini AI",
@@ -18,9 +19,11 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body suppressHydrationWarning>
-                <LanguageProvider>
-                    {children}
-                </LanguageProvider>
+                <ThemeProvider>
+                    <LanguageProvider>
+                        {children}
+                    </LanguageProvider>
+                </ThemeProvider>
             </body>
         </html>
     );
