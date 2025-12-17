@@ -65,8 +65,8 @@ export async function POST(request: NextRequest) {
         const response = await ai.models.generateContent({
             // Previous models:
             // - 'gemini-2.0-flash-exp' (experimental, deprecated)
-            // - 'gemini-3-pro-preview' (latest but may require special access)
-            model: 'gemini-2.5-flash', // Stable, production-ready model (GA since June 2025)
+            // - 'gemini-2.5-flash' (stable, production-ready)
+            model: 'models/gemini-3-pro-preview', // Latest preview model
             contents: fullPrompt,
             config: {
                 systemInstruction: systemPrompt,
