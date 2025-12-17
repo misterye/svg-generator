@@ -81,12 +81,11 @@ export const SvgPreview: React.FC<SvgPreviewProps> = ({ data }) => {
           <div className="flex gap-2">
             <button
               onClick={handleCopyCode}
-              className={`flex items - center gap - 2 px - 4 py - 2 rounded - lg border transition - colors ${copied
-                  ? 'bg-green-500/10 border-green-500/20 text-green-400'
-                  : 'bg-zinc-800 hover:bg-zinc-700 border-white/10 text-zinc-300'
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${copied
+                ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                : 'bg-zinc-800 hover:bg-zinc-700 border-white/10 text-zinc-300'
                 } `}
             >
-              <Code className="w-4 h-4" />
               <span className="text-sm">{t('preview.copy')}</span>
             </button>
             <button
